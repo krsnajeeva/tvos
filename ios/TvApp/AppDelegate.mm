@@ -4,6 +4,11 @@
 
 @implementation AppDelegate
 
+- (BOOL)bridgelessEnabled
+{
+  return false;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.moduleName = @"TvApp";
