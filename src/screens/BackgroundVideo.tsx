@@ -7,9 +7,10 @@ const { width, height } = Dimensions.get('window');
 
 interface BackgroundVideoProps {
   videoUri: string;
+  posterUri: string;
 }
 
-const BackgroundVideo: React.FC<BackgroundVideoProps> = ({ videoUri }) => {
+const BackgroundVideo: React.FC<BackgroundVideoProps> = ({ videoUri , posterUri}) => {
   return (
     <View style={styles.container}>
       <Video
@@ -20,6 +21,7 @@ const BackgroundVideo: React.FC<BackgroundVideoProps> = ({ videoUri }) => {
         muted
         playInBackground={false}
         playWhenInactive={false}
+        poster={posterUri}
       />
       <LinearGradient
         colors={['rgba(0, 0, 0, 0.7)', 'transparent']}

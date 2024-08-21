@@ -16,96 +16,127 @@ const data = [
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg',
   },
   {
     id: 2,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg',
   },
   {
     id: 3,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg',
   },
   {
     id: 4,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg',
   },
   {
     id: 5,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg',
   },
   {
     id: 6,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg',
   },
   {
     id: 7,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerMeltdowns.jpg',
   },
   {
     id: 8,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/Sintel.jpg',
   },
   {
     id: 9,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/SubaruOutbackOnStreetAndDirt.jpg',
   },
   {
     id: 10,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/TearsOfSteel.jpg',
   },
   {
     id: 11,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/VolkswagenGTIReview.jpg',
   },
   {
     id: 12,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/WeAreGoingOnBullrun.jpg',
   },
   {
     id: 13,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/WhatCarCanYouGetForAGrand.jpg',
   },
   {
     id: 14,
     image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg',
   },
   {
     id: 15,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    thumb:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg',
   },
 ];
 
 const App: React.FC = () => {
   const [focusedRailIndex, setFocusedRailIndex] = useState(0);
   const [currentVideo, setCurrentVideo] = useState(data[0].video);
+  const [currentPoster, setCurrentPoster] = useState(data[0].video);
 
   const handleUp = () => {
     if (focusedRailIndex > 0) {
@@ -122,12 +153,13 @@ const App: React.FC = () => {
 
   const handleItemFocus = (index: number) => {
     setCurrentVideo(data[index].video);
+    setCurrentPoster(data[index].thumb);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.firstpane}>
-        <BackgroundVideo videoUri={currentVideo} />
+        <BackgroundVideo videoUri={currentVideo} posterUri={currentPoster}/>
       </View>
       <ScrollView style={styles.secondpane}>
         <Rail
@@ -167,7 +199,6 @@ const styles = StyleSheet.create({
     zIndex: 1, // Ensure the video is above the secondpane
     // borderBottomWidth: 2, // Example border width
     // borderBottomColor: 'rgba(255, 255, 255, 0.5)', // White border with 50% opacity
-
 
     // borderRadius: 12, // Adjust this value for more or less rounded corners
     // overflow: 'hidden',
