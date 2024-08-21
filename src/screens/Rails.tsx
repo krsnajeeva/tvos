@@ -337,11 +337,12 @@ interface RailProps {
   onUp: () => void;
   onDown: () => void;
   isFocused: boolean;
+  onItemFocus: (index: number) => void; // Add this prop
 }
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<DataItem>);
 
-const Rail: React.FC<RailProps> = ({data, onUp, onDown, isFocused}) => {
+const Rail: React.FC<RailProps> = ({data, onUp, onDown, isFocused, onItemFocus}) => {
   const listRef = useRef<FlatList<DataItem>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -350,6 +351,7 @@ const Rail: React.FC<RailProps> = ({data, onUp, onDown, isFocused}) => {
       const offset = (ITEM_WIDTH + ITEM_MARGIN) * index;
       listRef.current.scrollToOffset({offset, animated: true});
       setCurrentIndex(index);
+      onItemFocus(index); // Trigger the callback
     }
   };
 
@@ -412,6 +414,7 @@ const Rail: React.FC<RailProps> = ({data, onUp, onDown, isFocused}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20
   },
   contentContainer: {
     paddingLeft: 20,  // Adjust the left padding as needed

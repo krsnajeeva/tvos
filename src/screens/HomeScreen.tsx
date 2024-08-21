@@ -1,52 +1,111 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Rail from './Rails';
+import BackgroundVideo from './BackgroundVideo';
+const {width, height} = Dimensions.get('window');
 
 const data = [
   {
     id: 1,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
   },
-  {id: 2, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 2,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+  },
   {
     id: 3,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
   },
-  {id: 4, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 4,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+  },
   {
     id: 5,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
   },
-  {id: 6, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 6,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+  },
   {
     id: 7,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
   },
-  {id: 8, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 8,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+  },
   {
     id: 9,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
   },
-  {id: 10, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 10,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+  },
   {
     id: 11,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
   },
-  {id: 12, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 12,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+  },
   {
     id: 13,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4',
   },
-  {id: 14, image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?'},
+  {
+    id: 14,
+    image: 'https://cdn.shopify.com/static/sample-images/bath.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+  },
   {
     id: 15,
     image: 'https://cdn.shopify.com/static/sample-images/garnished.jpeg?',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
   },
-  // Add more items as needed
 ];
 
 const App: React.FC = () => {
   const [focusedRailIndex, setFocusedRailIndex] = useState(0);
+  const [currentVideo, setCurrentVideo] = useState(data[0].video);
 
   const handleUp = () => {
     if (focusedRailIndex > 0) {
@@ -56,31 +115,43 @@ const App: React.FC = () => {
 
   const handleDown = () => {
     if (focusedRailIndex < 2) {
-      // Assuming there are 3 rails
+      // Adjust this if you add more rails
       setFocusedRailIndex(focusedRailIndex + 1);
     }
   };
 
+  const handleItemFocus = (index: number) => {
+    setCurrentVideo(data[index].video);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Rail
-        data={data}
-        onUp={handleUp}
-        onDown={handleDown}
-        isFocused={focusedRailIndex === 0}
-      />
-      <Rail
-        data={data}
-        onUp={handleUp}
-        onDown={handleDown}
-        isFocused={focusedRailIndex === 1}
-      />
-      <Rail
-        data={data}
-        onUp={handleUp}
-        onDown={handleDown}
-        isFocused={focusedRailIndex === 2}
-      />
+      <View style={styles.firstpane}>
+        <BackgroundVideo videoUri={currentVideo} />
+      </View>
+      <ScrollView style={styles.secondpane}>
+        <Rail
+          data={data}
+          onUp={handleUp}
+          onDown={handleDown}
+          isFocused={focusedRailIndex === 0}
+          onItemFocus={handleItemFocus}
+        />
+        <Rail
+          data={data}
+          onUp={handleUp}
+          onDown={handleDown}
+          isFocused={focusedRailIndex === 1}
+          onItemFocus={handleItemFocus}
+        />
+        <Rail
+          data={data}
+          onUp={handleUp}
+          onDown={handleDown}
+          isFocused={focusedRailIndex === 2}
+          onItemFocus={handleItemFocus}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -89,6 +160,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+  },
+  firstpane: {
+    width: '100%', // Full width for the video
+    height: '70%',
+    zIndex: 1, // Ensure the video is above the secondpane
+    // borderBottomWidth: 2, // Example border width
+    // borderBottomColor: 'rgba(255, 255, 255, 0.5)', // White border with 50% opacity
+
+
+    // borderRadius: 12, // Adjust this value for more or less rounded corners
+    // overflow: 'hidden',
+    // shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.8,
+    // shadowRadius: 10, // Larger value gives a more feathered effect
+    // elevation: 5, // For Android
+  },
+  secondpane: {
+    position: 'absolute', // Position absolutely
+    top: '50%', // Start the scroll view halfway down
+    width: '100%',
+    height: '50%',
+    zIndex: 2, // Ensure the secondpane is above firstpane
   },
 });
 
