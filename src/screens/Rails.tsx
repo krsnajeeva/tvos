@@ -348,37 +348,69 @@ const Rail: React.FC<RailProps> = ({data, onUp, onDown, isFocused, onItemFocus})
 
   const scrollToIndex = (index: number) => {
     if (listRef.current) {
-      const offset = (ITEM_WIDTH + ITEM_MARGIN) * index;
+      const offset = index * (ITEM_WIDTH + ITEM_MARGIN);
       listRef.current.scrollToOffset({offset, animated: true});
       setCurrentIndex(index);
       onItemFocus(index); // Trigger the callback
     }
   };
 
-  const handleTVEvent = (evt: {eventType: string}) => {
-    if (!isFocused) return;
+  // const handleTVEvent = _.debounce((evt: {eventType: string}) => {
+  //   // Handle the event
+  // }, 300);
+  
+  // const handleTVEvent = (evt: {eventType: string}) => {
+  //   if (!isFocused) return;
 
-    switch (evt.eventType) {
-      case 'right':
-        if (currentIndex < data.length - 1) {
-          scrollToIndex(currentIndex + 1);
-        }
-        break;
-      case 'left':
-        if (currentIndex > 0) {
-          scrollToIndex(currentIndex - 1);
-        }
-        break;
-      case 'down':
-        onDown();
-        break;
-      case 'up':
-        onUp();
-        break;
-      default:
-        break;
-    }
-  };
+  //   switch (evt.eventType) {
+  //     case 'right':
+  //       if (currentIndex < data.length - 1) {
+  //         scrollToIndex(currentIndex + 1);
+  //       }
+  //       break;
+  //     case 'left':
+  //       if (currentIndex > 0) {
+  //         scrollToIndex(currentIndex - 1);
+  //       }
+  //       break;
+  //     case 'down':
+  //       onDown();
+  //       break;
+  //     case 'up':
+  //       onUp();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
+  const handleTVEvent = useCallback(
+    (evt: { eventType: string }) => {
+      if (!isFocused) return;
+  
+      switch (evt.eventType) {
+        case 'right':
+          if (currentIndex < data.length - 1) {
+            scrollToIndex(currentIndex + 1);
+          }
+          break;
+        case 'left':
+          if (currentIndex > 0) {
+            scrollToIndex(currentIndex - 1);
+          }
+          break;
+        case 'down':
+          onDown();
+          break;
+        case 'up':
+          onUp();
+          break;
+        default:
+          break;
+      }
+    },
+    [currentIndex, isFocused] // Add dependencies to prevent unnecessary re-renders
+  );
 
   useTVEventHandler(evt => handleTVEvent(evt));
 
@@ -406,6 +438,13 @@ const Rail: React.FC<RailProps> = ({data, onUp, onDown, isFocused, onItemFocus})
         keyExtractor={item => item.id.toString()}
         scrollEnabled={false}  // Disable manual scrolling
         contentContainerStyle={styles.contentContainer}  // Align items to the left
+        initialNumToRender={5} // or adjust as per your need
+        maxToRenderPerBatch={5} // or adjust as per your need
+        windowSize={10} // Adjust the number of items kept in memory
+        getItemLayout={(data, index) => (
+          {length: height * 0.2, offset: height * 0.2 * index, index}
+        )}
+      
       />
     </View>
   );
@@ -437,4 +476,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Rail;
+// export default Rail;
+export default React.memo(Rail);

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
   Dimensions,
+  InteractionManager,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -152,8 +153,10 @@ const App: React.FC = () => {
   };
 
   const handleItemFocus = (index: number) => {
+    InteractionManager.runAfterInteractions(() => {
     setCurrentVideo(data[index].video);
     setCurrentPoster(data[index].thumb);
+    });
   };
 
   return (
@@ -197,16 +200,6 @@ const styles = StyleSheet.create({
     width: '100%', // Full width for the video
     height: '70%',
     zIndex: 1, // Ensure the video is above the secondpane
-    // borderBottomWidth: 2, // Example border width
-    // borderBottomColor: 'rgba(255, 255, 255, 0.5)', // White border with 50% opacity
-
-    // borderRadius: 12, // Adjust this value for more or less rounded corners
-    // overflow: 'hidden',
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.8,
-    // shadowRadius: 10, // Larger value gives a more feathered effect
-    // elevation: 5, // For Android
   },
   secondpane: {
     position: 'absolute', // Position absolutely

@@ -78,4 +78,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BackgroundVideo;
+// export default BackgroundVideo;
+export default React.memo(BackgroundVideo);
